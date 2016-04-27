@@ -114,15 +114,14 @@ public class ZomatoTest {
 	public static List<Business> zomatoSearch(String city, String stateCode, String searchTerm){
 		try {
 			LocationDTO locationFromCityAndState = getLocationFromCityAndState(city, stateCode);
-			return zomatoSearchWithLocation(locationFromCityAndState.getCityId(), searchTerm);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
+			if (locationFromCityAndState !=null) {
+				return zomatoSearchWithLocation(locationFromCityAndState.getCityId(), searchTerm);
+			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
 }

@@ -6,7 +6,7 @@
 <body>
 <div style="width:80%;">
 	<form action="search">
-	<div class="form-group"><label>City</label><input class="form-control" id="city" name="city" type="text" /></div>
+	<div class="form-group"><label>Location</label><input class="form-control" id="city" name="city" type="text" /></div>
 	<div class="form-group"><label>State</label><input class="form-control" id="state" name="state" type="text" /></div>
 	<div class="form-group"><label>Query</label><input class="form-control" id="query" name="query" type="text" /></div>
 	<div class="form-group"><button type="submit" value="submit">Submit</button></div>

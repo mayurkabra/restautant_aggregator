@@ -31,13 +31,14 @@ public class DataController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "search")
-	public String home(HttpServletRequest request, String city, String state, String query) {
+	public ModelAndView home(HttpServletRequest request, String city, String state, String query) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Business> result = DataIntegrator.locationAndQuerySearch(city, state, query);
 		System.out.println(result);
-		modelAndView.addObject("json", result);
+		modelAndView.addObject("result", result);
+		modelAndView.setViewName("display_results");
 		
-		return "search_form";
+		return modelAndView;
 	}
 	@RequestMapping(value = "form")
 	public ModelAndView form() {

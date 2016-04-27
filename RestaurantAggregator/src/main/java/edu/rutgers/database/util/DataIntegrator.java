@@ -48,9 +48,11 @@ public class DataIntegrator {
 			}
 		}
 		
-		for (Business z : zomatoSearch) {
-			if(!z.isDuplicate()){
-				aggregatedValue.add(z);
+		if(zomatoSearch!=null){
+			for (Business z : zomatoSearch) {
+				if(!z.isDuplicate()){
+					aggregatedValue.add(z);
+				}
 			}
 		}
 		

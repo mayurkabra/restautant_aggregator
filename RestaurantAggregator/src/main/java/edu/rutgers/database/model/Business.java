@@ -1,9 +1,10 @@
 package edu.rutgers.database.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Business implements Comparable<Business>{
+public class Business implements Comparable<Business>, Serializable{
 	
 	String name;
 	Float rating;
@@ -15,12 +16,14 @@ public class Business implements Comparable<Business>{
 	double latitude;
 	double longitude;
 	boolean duplicate;
+	List<String> reviews;
 	
 	public Business() {
 		super();
 		categories = new ArrayList<>();
 		contactNumber="";
 		duplicate=false;
+		reviews = new ArrayList<>();
 	}
 	public boolean isDuplicate() {
 		return duplicate;
@@ -81,6 +84,13 @@ public class Business implements Comparable<Business>{
 	}
 	public void setRatingCount(long ratingCount) {
 		this.ratingCount = ratingCount;
+	}
+	
+	public List<String> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<String> reviews) {
+		this.reviews = reviews;
 	}
 	@Override
 	public String toString() {
