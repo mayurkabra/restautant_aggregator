@@ -1,10 +1,9 @@
 package edu.rutgers.database.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Business implements Comparable<Business>, Serializable{
+public class Business implements Comparable<Business>{
 	
 	String name;
 	Float rating;
@@ -16,12 +15,14 @@ public class Business implements Comparable<Business>, Serializable{
 	double latitude;
 	double longitude;
 	boolean duplicate;
+	Double distance;
 	List<String> reviews;
 	
 	public Business() {
 		super();
 		categories = new ArrayList<>();
 		contactNumber="";
+		address="";
 		duplicate=false;
 		reviews = new ArrayList<>();
 	}
@@ -101,6 +102,12 @@ public class Business implements Comparable<Business>, Serializable{
 	@Override
 	public int compareTo(Business o) {
 		return o.rating.compareTo(this.getRating());
+	}
+	public Double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 	
 	

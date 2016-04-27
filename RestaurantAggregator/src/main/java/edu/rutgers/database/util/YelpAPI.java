@@ -36,7 +36,7 @@ public class YelpAPI {
 	private static final String API_HOST = "api.yelp.com";
 	private static final String DEFAULT_TERM = "dinner";
 	private static final String DEFAULT_LOCATION = "San Francisco, CA";
-	private static final int SEARCH_LIMIT = 20;
+	private static final int SEARCH_LIMIT = 10;
 	private static final String SEARCH_PATH = "/v2/search";
 	private static final String BUSINESS_PATH = "/v2/business";
 
@@ -202,7 +202,12 @@ public class YelpAPI {
 			JSONObject yelpBusiness = (JSONObject) iterator.next();
 			Business business = new Business();
 			business.setName((String) yelpBusiness.get("name"));
-			business.setAddress((String) ((JSONArray)((JSONObject)yelpBusiness.get("location")).get("address")).get(0));
+			try {
+				business.setAddress((String) ((JSONArray)((JSONObject)yelpBusiness.get("location")).get("address")).get(0));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			business.setContactNumber((String) yelpBusiness.get("phone"));
 			business.setRating(((Double)yelpBusiness.get("rating")).floatValue());
 			business.setRatingCount(((Long)yelpBusiness.get("review_count")));

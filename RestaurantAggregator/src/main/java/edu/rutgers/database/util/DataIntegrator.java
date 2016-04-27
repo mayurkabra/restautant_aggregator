@@ -1,5 +1,6 @@
 package edu.rutgers.database.util;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,7 @@ public class DataIntegrator {
 	public static List<Business> locationAndQuerySearch(String city, String stateCode, String searchTerm) {
 		List<Business> yelpSearch = YelpAPI.yelpSearch(city, stateCode, searchTerm);
 		List<Business> zomatoSearch = ZomatoTest.zomatoSearch(city, stateCode, searchTerm);
-		
+		DecimalFormat decimalFormat = new DecimalFormat("##.##");
 		List<Business> aggregatedValue = new ArrayList<>();
 		
 		for (Business yelpB : yelpSearch) {
@@ -35,7 +36,8 @@ public class DataIntegrator {
 						zomatoB.setDuplicate(true);
 						
 						if (yelpB.getRatingCount()>0) {
-							yelpB.setRating((yelpB.getRating()*yelpB.getRatingCount() + zomatoB.getRating()*zomatoB.getRatingCount()) / (yelpB.getRatingCount()+zomatoB.getRatingCount()));
+							float rating = (yelpB.getRating()*yelpB.getRatingCount() + zomatoB.getRating()*zomatoB.getRatingCount()) / (yelpB.getRatingCount()+zomatoB.getRatingCount());
+							yelpB.setRating(Float.parseFloat(decimalFormat.format(rating)));
 						}
 						yelpB.setRatingCount(yelpB.getRatingCount()+zomatoB.getRatingCount());
 						yelpB.setCountOfSources(yelpB.getCountOfSources()+1);
