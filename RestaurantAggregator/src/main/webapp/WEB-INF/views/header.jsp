@@ -18,6 +18,26 @@
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
 	crossorigin="anonymous">
 
+<style type="text/css">
+button.gps {
+	background-image: url(../resources/images/gps.png);
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	/* put the height and width of your image here */
+	height: 20px;
+	width: 20px;
+	border: none;
+}
+
+button.gps span {
+	display: none;
+}
+
+table{
+	width: 100%;
+}
+</style>
+
 <!-- Latest compiled and minified JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
@@ -28,13 +48,15 @@
 <body>
 	<table>
 		<tr>
-			<th colspan="5">
-				<a href="/database/">
-					<img alt="DBProject" src="/database/resources/images/banner1.png" />
-				</a>
+			<th align="center" colspan="10">
+				<center>
+					<a href="/database/"> <img alt="DBProject"
+						src="/database/resources/images/banner1.png" />
+					</a>
+				</center>
 			</th>
 		</tr>
-		<tr>
+		<tr valign="top" height="50px">
 			<td align="center">
 				<a href="/database/data/form">Search for consumers</a>
 			</td>

@@ -5,12 +5,12 @@
 <html>
 <body>
 <div style="width:80%;">
-<label>You have selected <%=request.getAttribute("name") %>. Type in a dish you serve to proceed</label>
+<label>You have selected '<%=request.getAttribute("name") %>'.<br/>Type in a dish that you serve, or want to serve to proceed :-</label>
 	<form action="searchByDistanceForRestaurant">
 	<input type="hidden" id="city" name="city" value="<%=request.getAttribute("city")%>">
 	<input type="hidden" id="state" name="state" value="<%=request.getAttribute("state")%>">
 	<input type="hidden" id="name" name="name" value="<%=request.getAttribute("name")%>">
-	<div class="form-group"><label>Query</label><input class="form-control" id="query" name="query" type="text" /></div>
+	<div class="form-group"><!-- <label>Query</label> --><input class="form-control" id="query" name="query" type="text" /></div>
 	<input type="hidden" id="lat" name="lat" value="<%=request.getAttribute("lat")%>">
 	<input type="hidden" id="lon" name="lon" value="<%=request.getAttribute("lon")%>">
 	<button type="submit">Go</button>

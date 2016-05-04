@@ -12,7 +12,7 @@
 		<th>Name</th>
 		<th>Rating</th>
 		<th>Rate Count</th>
-		<th>Number of Sources</th>
+		<!-- <th>Number of Sources</th> -->
 		<th>Address</th>
 		<%if(request.getAttribute("showDistance")!=null){%><th>Distance</th><%} %>
 		<th>Contact Number</th>
@@ -25,14 +25,14 @@
 				<td><%=business.getName() %></td>
 				<td><%=business.getRating() %></td>
 				<td><%=business.getRatingCount() %></td>
-				<td><%=business.getCountOfSources() %></td>
+				<%-- <td><%=business.getCountOfSources() %></td> --%>
 				<td><form id="byDist_<%=i++%>" action="searchByDistance">
 					<input type="hidden" id="city" name="city" value="<%=request.getAttribute("city")%>">
 					<input type="hidden" id="state" name="state" value="<%=request.getAttribute("state")%>">
 					<input type="hidden" id="query" name="query" value="<%=request.getAttribute("query")%>">
 					<input type="hidden" id="lat" name="lat" value="<%=business.getLatitude()%>">
 					<input type="hidden" id="lon" name="lon" value="<%=business.getLongitude()%>">
-					<%=business.getAddress() %> <button type="submit">Near This</button>
+					<%=business.getAddress() %> <button class="gps" type="submit"></button>
 				</form></td>
 				<%if(request.getAttribute("showDistance")!=null){%><td><%= business.getDistance()%></td><%} %>
 				<td><%=business.getContactNumber() %></td>

@@ -8,7 +8,7 @@
 <html>
 <body>
 
-<div style="clear: both;">
+<div align="center" style="clear: both;">
 <script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=<%=URLEncoder.encode((String)request.getAttribute("query"), "UTF-8") %>&geo=US-<%=(String)request.getAttribute("state") %>&date=today+1-m&cmpt=q&tz=Etc/GMT%2B4&tz=Etc/GMT%2B4&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330"></script>
 <script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=<%=URLEncoder.encode((String)request.getAttribute("query"), "UTF-8") %>&geo=US-<%=(String)request.getAttribute("state") %>&date=today+12-m&cmpt=q&tz=Etc/GMT%2B4&tz=Etc/GMT%2B4&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330"></script>
 </div>
@@ -18,7 +18,7 @@
 		<th>Name</th>
 		<th>Rating</th>
 		<th>Rate Count</th>
-		<th>Number of Sources</th>
+		<!-- <th>Number of Sources</th> -->
 		<th>Address</th>
 		<%if(request.getAttribute("showDistance")!=null){%><th>Distance</th><%} %>
 		<th>Contact Number</th>
@@ -31,7 +31,7 @@
 				<td><%=business.getName() %></td>
 				<td><%=business.getRating() %></td>
 				<td><%=business.getRatingCount() %></td>
-				<td><%=business.getCountOfSources() %></td>
+				<%-- <td><%=business.getCountOfSources() %></td> --%>
 				<td><%=business.getAddress() %><%-- <form id="byDist_<%=i++%>" action="searchByDistance">
 					<input type="hidden" id="city" name="city" value="<%=request.getAttribute("city")%>">
 					<input type="hidden" id="state" name="state" value="<%=request.getAttribute("state")%>">

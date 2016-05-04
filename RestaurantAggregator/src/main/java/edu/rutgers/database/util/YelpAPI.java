@@ -139,14 +139,14 @@ public class YelpAPI {
 		JSONObject response = null;
 		try {
 			response = (JSONObject) parser.parse(searchResponseJSON);
-			return response;
+			//return response;
 		} catch (ParseException pe) {
 			System.out.println("Error: could not parse JSON response:");
 			System.out.println(searchResponseJSON);
-			System.exit(1);
+			//System.exit(1);
 		}
 
-		JSONArray businesses = (JSONArray) response.get("businesses");
+		/*JSONArray businesses = (JSONArray) response.get("businesses");
 		int index = 0;
 		for (index = 0; index < businesses.size(); index++) {
 			JSONObject business = (JSONObject) businesses.get(index);
@@ -156,7 +156,7 @@ public class YelpAPI {
 			String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
 			System.out.println(String.format("Result for business "+firstBusinessID+" found:"));
 			System.out.println(businessResponseJSON);
-		}
+		}*/
 		return response;
 	}
 
@@ -185,41 +185,46 @@ public class YelpAPI {
 	}
 
 	public static List<Business> yelpSearch(String city, String stateCode, String searchTerm) {
-		YelpAPICLI yelpApiCli = new YelpAPICLI();
-		yelpApiCli.term=searchTerm;
-		yelpApiCli.location=city+", "+stateCode;
-		new JCommander(yelpApiCli);
-
-		YelpAPI yelpApi = new YelpAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
-		JSONObject queryResponse = queryAPI(yelpApi, yelpApiCli);
-
-		JSONArray businesses = (JSONArray) queryResponse.get("businesses");
-		Iterator iterator = businesses.iterator();
-		
 		List<Business> yelpBusinesses = new ArrayList<>();
+		try {
+			YelpAPICLI yelpApiCli = new YelpAPICLI();
+			yelpApiCli.term=searchTerm;
+			yelpApiCli.location=city+", "+stateCode;
+			new JCommander(yelpApiCli);
 
-		while(iterator.hasNext()){
-			JSONObject yelpBusiness = (JSONObject) iterator.next();
-			Business business = new Business();
-			business.setName((String) yelpBusiness.get("name"));
-			try {
-				business.setAddress((String) ((JSONArray)((JSONObject)yelpBusiness.get("location")).get("address")).get(0));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			YelpAPI yelpApi = new YelpAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
+			JSONObject queryResponse = queryAPI(yelpApi, yelpApiCli);
+
+			JSONArray businesses = (JSONArray) queryResponse.get("businesses");
+			Iterator iterator = businesses.iterator();
+
+
+			while(iterator.hasNext()){
+				JSONObject yelpBusiness = (JSONObject) iterator.next();
+				Business business = new Business();
+				business.setName((String) yelpBusiness.get("name"));
+				try {
+					business.setAddress((String) ((JSONArray)((JSONObject)yelpBusiness.get("location")).get("address")).get(0));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				business.setContactNumber((String) yelpBusiness.get("phone"));
+				business.setRating(((Double)yelpBusiness.get("rating")).floatValue());
+				business.setRatingCount(((Long)yelpBusiness.get("review_count")));
+				business.setCountOfSources(1);
+				double latitude = (double) ((JSONObject)((JSONObject)yelpBusiness.get("location")).get("coordinate")).get("latitude");
+				business.setLatitude(latitude);
+				double longitude = (double) ((JSONObject)((JSONObject)yelpBusiness.get("location")).get("coordinate")).get("longitude");
+				business.setLongitude(longitude);
+				//business.setCategories(categories);
+
+				//System.out.println(business.toString());
+				yelpBusinesses.add(business);
 			}
-			business.setContactNumber((String) yelpBusiness.get("phone"));
-			business.setRating(((Double)yelpBusiness.get("rating")).floatValue());
-			business.setRatingCount(((Long)yelpBusiness.get("review_count")));
-			business.setCountOfSources(1);
-			double latitude = (double) ((JSONObject)((JSONObject)yelpBusiness.get("location")).get("coordinate")).get("latitude");
-			business.setLatitude(latitude);
-			double longitude = (double) ((JSONObject)((JSONObject)yelpBusiness.get("location")).get("coordinate")).get("longitude");
-			business.setLongitude(longitude);
-			//business.setCategories(categories);
-
-			//System.out.println(business.toString());
-			yelpBusinesses.add(business);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return yelpBusinesses;
 	}
